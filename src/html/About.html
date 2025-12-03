@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Anjirai Literary Circle</title>
+    <link rel="stylesheet" href="../css/common.css">
+    <style>
+        /* Page-specific styles for About.html */
+        .container {
+            max-width: 1000px;
+        }
+
+        .about-intro {
+            font-style: italic;
+            font-size: 1.2rem;
+            color: #0d3c5c;
+            margin-bottom: 2.5rem;
+            text-align: center;
+            padding: 2rem;
+            background: white;
+            border-radius: 15px;
+            border-left: 5px solid #1a5a7d;
+            box-shadow: 0 4px 20px rgba(13, 60, 92, 0.08);
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .about-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 2.5rem;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .about-text p {
+            margin-bottom: 1.5rem;
+            color: #555;
+            padding: 1.5rem;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(13, 60, 92, 0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .about-text p:hover {
+            transform: translateX(5px);
+            box-shadow: 0 4px 15px rgba(13, 60, 92, 0.1);
+        }
+
+        .what-we-do {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 15px;
+            margin: 2.5rem 0;
+            border-left: 5px solid #1a5a7d;
+            box-shadow: 0 4px 20px rgba(13, 60, 92, 0.08);
+            animation: fadeInUp 1.2s ease-out;
+        }
+
+        .what-we-do h3 {
+            color: #0d3c5c;
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+        }
+
+        .what-we-do ul {
+            list-style: none;
+        }
+
+        .what-we-do li {
+            margin-bottom: 1.5rem;
+            padding-left: 2.5rem;
+            position: relative;
+            font-size: 1.08rem;
+            color: #555;
+            line-height: 1.7;
+            transition: all 0.3s;
+        }
+
+        .what-we-do li:hover {
+            transform: translateX(5px);
+            color: #0d3c5c;
+        }
+
+        .what-we-do li:before {
+            content: "✦";
+            color: #1a5a7d;
+            font-size: 1.3rem;
+            position: absolute;
+            left: 0;
+            top: 0;
+            transition: transform 0.3s;
+        }
+
+        .what-we-do li:hover:before {
+            transform: scale(1.3) rotate(90deg);
+        }
+
+        .mission-statement {
+            background: linear-gradient(135deg, #0d3c5c 0%, #1a5a7d 100%);
+            color: white;
+            padding: 2.5rem;
+            border-radius: 15px;
+            text-align: center;
+            font-size: 1.2rem;
+            font-style: italic;
+            line-height: 1.8;
+            margin-top: 2.5rem;
+            box-shadow: 0 8px 30px rgba(13, 60, 92, 0.3);
+            position: relative;
+            overflow: hidden;
+            animation: fadeInUp 1.4s ease-out;
+        }
+
+        .mission-statement::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,215,0,0.1) 0%, transparent 70%);
+            animation: pulse 20s ease-in-out infinite;
+        }
+
+        .mission-statement p {
+            position: relative;
+            z-index: 1;
+        }
+
+        h3.values-title {
+            text-align: center;
+            color: #0d3c5c;
+            font-size: 1.9rem;
+            margin: 2.5rem 0 1.8rem;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        h3.values-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #1a5a7d, transparent);
+        }
+
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .value-card {
+            background: white;
+            padding: 1.8rem;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(13, 60, 92, 0.08);
+            border-top: 4px solid #1a5a7d;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .value-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(26, 90, 125, 0.05), transparent);
+            transition: left 0.6s;
+        }
+
+        .value-card:hover::before {
+            left: 100%;
+        }
+
+        .value-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 12px 35px rgba(13, 60, 92, 0.15);
+        }
+
+        .value-card h4 {
+            color: #0d3c5c;
+            font-size: 1.25rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .value-card p {
+            color: #666;
+            line-height: 1.6;
+            font-size: 0.98rem;
+        }
+
+        @media (max-width: 768px) {
+            .values-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease-out;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="header-top">
+                <div class="logo-section">
+                    <img src="../../images/logo/Banner_Website.png" alt="Anjirai Literary Circle Logo">
+                    <div class="title-section">
+                        <h1>ANJIRAI LITERARY CIRCLE</h1>
+                        <p class="tagline">Read, Reflect, Evolve – Stories that Shape Us</p>
+
+                    </div>
+                </div>
+            </div>
+            <nav class="header-nav">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="About.html" class="active">About Us</a></li>
+                    <li><a href="Events.html">Events</a></li>
+                    <li><a href="Contact.html">Contact Us</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+
+    <div class="container">
+
+           <div class="intro-content fade-in-up">
+            <p>
+               We are more than an institution — we are a gathering of voices, a circle of imagination, and a bridge between cultures.
+                We believe that Tamil writing, with its centuries of richness and contemporary brilliance, deserves to be celebrated on the world stage. Yet too often, the authors who shape this tradition remain unsung. Our mission is to honor them, to nurture their words, and to ensure their stories find new readers everywhere.
+
+               </div>
+
+
+        <div class="what-we-do fade-in">
+            <h3>🌿 What We Do</h3>
+            <ul>
+                <li>We support creative writing and translations, opening pathways for Tamil works to travel into new languages and audiences.</li>
+                <li>We sponsor publications and book launches, giving authors the stage they deserve.</li>
+                <li>We organize workshops and book clubs, creating spaces where readers and writers meet, share, and grow.</li>
+                <li>We build libraries and resources, so Tamil literature can be preserved and passed on to future generations.</li>
+            </ul>
+        </div>
+
+        <h3 class="values-title fade-in">Our Core Values</h3>
+        
+        <div class="values-grid">
+            <div class="value-card fade-in">
+                <h4>Cultural Preservation</h4>
+                <p>Safeguarding the rich heritage of Tamil literature for future generations.</p>
+            </div>
+
+            <div class="value-card fade-in">
+                <h4>Global Connectivity</h4>
+                <p>Building bridges between Tamil literature and world audiences through translation and dialogue.</p>
+            </div>
+            <div class="value-card fade-in">
+                <h4>Community Building</h4>
+                <p>Fostering a welcoming space for writers, readers, and literary enthusiasts to connect and collaborate.</p>
+            </div>
+        </div>
+
+
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Anjirai Literary Circle. All rights reserved.</p>
+        <p>A Non-Profit Organization | New Jersey, USA</p>
+        <div class="social-links">
+            <a href="https://facebook.com/AnjiraiLiteraryCircle" target="_blank">Facebook</a> |
+            <a href="https://youtube.com/@anjiraibookclub" target="_blank">YouTube</a>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="../js/common.js"></script>
+    <script src="../js/about.js"></script>
+</body>
+</html>

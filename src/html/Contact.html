@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - Anjirai Literary Circle</title>
+    <link rel="stylesheet" href="../css/common.css">
+    <style>
+        /* Page-specific styles for Contact.html */
+
+        .contact-intro {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 2.5rem;
+            font-size: 1.15rem;
+            color: #555;
+            line-height: 1.7;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2.5rem;
+            margin-top: 2rem;
+        }
+
+        .contact-form {
+            background: white;
+            padding: 2.2rem;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(13, 60, 92, 0.08);
+            animation: fadeIn 1s ease-out;
+        }
+
+        .contact-form h3 {
+            color: #0d3c5c;
+            margin-bottom: 1.3rem;
+            font-size: 1.7rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.3rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #0d3c5c;
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 0.85rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-family: inherit;
+            font-size: 0.98rem;
+            transition: all 0.3s;
+            background: #fafafa;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #1a5a7d;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(26, 90, 125, 0.1);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 140px;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #0d3c5c 0%, #1a5a7d 100%);
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        .contact-info {
+            padding: 1rem;
+            animation: fadeIn 1.2s ease-out;
+        }
+
+        .contact-item {
+            margin-bottom: 1.8rem;
+            padding: 1.8rem;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(13, 60, 92, 0.08);
+            border-left: 5px solid #1a5a7d;
+            transition: all 0.3s;
+        }
+
+        .contact-item:hover {
+            transform: translateX(8px);
+            box-shadow: 0 6px 20px rgba(13, 60, 92, 0.12);
+        }
+
+        .contact-item h3 {
+            color: #0d3c5c;
+            margin-bottom: 0.8rem;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .contact-item p {
+            color: #666;
+            line-height: 1.6;
+            font-size: 0.98rem;
+        }
+
+        .contact-item a {
+            color: #1a5a7d;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        .contact-item a:hover {
+            color: #0d3c5c;
+            text-decoration: underline;
+        }
+
+        .contact-item ul {
+            margin-left: 1.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .contact-item li {
+            color: #666;
+            margin-bottom: 0.3rem;
+        }
+
+        .social-section {
+            background: linear-gradient(135deg, #0d3c5c 0%, #1a5a7d 100%);
+            color: white;
+            padding: 2.5rem;
+            border-radius: 15px;
+            text-align: center;
+            margin-top: 2.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .social-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,215,0,0.1) 0%, transparent 70%);
+            animation: pulse 20s ease-in-out infinite;
+        }
+
+        .social-section h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .social-section > p {
+            position: relative;
+            z-index: 1;
+            font-size: 1.05rem;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.8rem;
+            margin-top: 1.8rem;
+            flex-wrap: wrap;
+        }
+
+        .social-link {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1.3rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            text-decoration: none;
+            color: white;
+            transition: all 0.3s;
+            min-width: 140px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .social-link:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .social-icon {
+            font-size: 2rem;
+        }
+
+        .map-section {
+            margin-top: 2.5rem;
+            padding: 2rem;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(13, 60, 92, 0.08);
+        }
+
+        .map-section h3 {
+            color: #0d3c5c;
+            margin-bottom: 1rem;
+            text-align: center;
+            font-size: 1.7rem;
+        }
+
+        .map-section p {
+            text-align: center;
+            color: #666;
+            line-height: 1.7;
+        }
+
+        @media (max-width: 768px) {
+            .contact-container {
+                grid-template-columns: 1fr;
+            }
+
+            .social-links {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+        .success-message {
+            background: #4caf50;
+            color: white;
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            display: none;
+            animation: slideDown 0.3s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="header-top">
+                <div class="logo-section">
+                    <img src="../../images/logo/Banner_Website.png" alt="Anjirai Literary Circle Logo">
+                    <div class="title-section">
+                        <h1>ANJIRAI LITERARY CIRCLE</h1>
+                        <p class="tagline">Read, Reflect, Evolve – Stories that Shape Us</p>
+                    </div>
+                </div>
+            </div>
+            <nav class="header-nav">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="About.html">About Us</a></li>
+                    <li><a href="Events.html">Events</a></li>
+                    <li><a href="Contact.html" class="active">Contact Us</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+
+
+    <div class="container">
+        <div class="contact-intro">
+            <p>Whether you're interested in joining our community, have questions about our programs, or want to collaborate with us, we're here to help. Reach out to us through any of the channels below.</p>
+        </div>
+
+        <div class="contact-container">
+            <div class="contact-form">
+                <h3>Send us a Message</h3>
+                <div id="successMessage" class="success-message">
+                    Thank you! Your message has been sent successfully.
+                </div>
+                <form id="contactForm" action="https://formsubmit.co/anjiraibookclub@gmail.com" method="POST">
+                    <!-- FormSubmit Configuration -->
+                    <input type="hidden" name="_subject" value="New Contact Form Submission - Anjirai Literary Circle">
+                    <input type="hidden" name="_template" value="table">
+                    <input type="hidden" name="_captcha" value="false">
+
+                    <div class="form-group">
+                        <label>Full Name *</label>
+                        <input type="text" name="name" required placeholder="Your name">
+                    </div>
+                    <div class="form-group">
+                        <label>Email Address *</label>
+                        <input type="email" name="email" required placeholder="your.email@example.com">
+                    </div>
+                    <div class="form-group">
+                        <label>Phone Number</label>
+                        <input type="tel" name="phone" placeholder="(Optional)">
+                    </div>
+                    <div class="form-group">
+                        <label>Subject *</label>
+                        <select name="subject" required>
+                            <option value="">Select a topic</option>
+                            <option value="Membership Inquiry">Membership Inquiry</option>
+                            <option value="Event Information">Event Information</option>
+                            <option value="Collaboration">Collaboration</option>
+                            <option value="Publication Support">Publication Support</option>
+                            <option value="Volunteer Opportunities">Volunteer Opportunities</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Message *</label>
+                        <textarea name="message" required placeholder="Tell us how we can help you..."></textarea>
+                    </div>
+                    <button type="submit" class="btn">Send Message</button>
+                </form>
+            </div>
+
+            <div class="contact-info">
+                <div class="contact-item">
+                    <h3>📧 Email</h3>
+                    <p><a href="mailto:info@anjirai.org">info@anjirai.org</a></p>
+                    <p style="margin-top: 0.5rem; font-size: 0.9rem;">We typically respond within 24-48 hours</p>
+                </div>
+
+                <div class="contact-item">
+                    <h3>📍 Location</h3>
+                    <p>New Jersey, USA</p>
+                    <p style="margin-top: 0.5rem; font-size: 0.9rem;">Serving Tamil literary communities worldwide</p>
+                </div>
+
+
+                <div class="contact-item">
+                    <h3>🤝 Get Involved</h3>
+                    <p>We welcome:</p>
+                    <ul>
+                        <li>Writers and poets</li>
+                        <li>Translators</li>
+                        <li>Literary enthusiasts</li>
+                        <li>Volunteers</li>
+                        <li>Event organizers</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        
+
+
+    </div>
+
+    <footer>
+        <p>Based in New Jersey, we serve Tamil literary communities across North America and around the world through our online programs and events.</p>
+        <p> </p>
+        <p>&copy; 2024 Anjirai Literary Circle. All rights reserved.</p>
+        <p>A Non-Profit Organization | New Jersey, USA</p>
+        <div class="social-links">
+            <a href="https://facebook.com/AnjiraiLiteraryCircle" target="_blank">Facebook</a> |
+            <a href="https://youtube.com/@anjiraibookclub" target="_blank">YouTube</a>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="../js/common.js"></script>
+    <script src="../js/contact.js"></script>
+</body>
+</html>

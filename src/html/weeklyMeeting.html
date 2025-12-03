@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weekly Meetings - Anjirai Literary Circle</title>
+    <link rel="stylesheet" href="../css/common.css">
+    <style>
+        /* Page-specific styles for weeklyMeeting.html */
+        .page-header h2 {
+            margin-bottom: 0.8rem;
+        }
+
+        .page-header p {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .breadcrumb {
+            max-width: 1200px;
+            margin: 1.2rem auto;
+            padding: 0 2rem;
+            font-size: 0.95rem;
+        }
+
+        .breadcrumb a {
+            color: #1a5a7d;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        .breadcrumb a:hover {
+            color: #0d3c5c;
+        }
+
+        .breadcrumb span {
+            color: #666;
+            margin: 0 0.5rem;
+        }
+
+        .container {
+            padding: 1.5rem 2rem 2.5rem;
+        }
+
+        .intro-section {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 20px rgba(13, 60, 92, 0.08);
+        }
+
+        .intro-section h3 {
+            color: #0d3c5c;
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .intro-section p {
+            font-size: 1.05rem;
+            line-height: 1.7;
+            color: #555;
+            margin-bottom: 0.8rem;
+        }
+
+        .meeting-info {
+            background: linear-gradient(135deg, #0d3c5c 0%, #1a5a7d 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 15px;
+            margin-top: 1.5rem;
+        }
+
+        .meeting-info h4 {
+            font-size: 1.4rem;
+            margin-bottom: 1.2rem;
+            color: #ffd700;
+        }
+
+        .meeting-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.2rem;
+        }
+
+        .detail-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1.2rem;
+            border-radius: 10px;
+            transition: transform 0.3s;
+        }
+
+        .detail-item:hover {
+            transform: translateY(-3px);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .detail-item strong {
+            display: block;
+            font-size: 1.05rem;
+            margin-bottom: 0.5rem;
+            color: #ffd700;
+        }
+
+        .year-tabs {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            margin: 2rem 0 1.5rem;
+            padding: 1.2rem;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(13, 60, 92, 0.08);
+        }
+
+        .year-tab {
+            padding: 0.8rem 1.8rem;
+            background: #f0f7fb;
+            color: #0d3c5c;
+            border: 2px solid #1a5a7d;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+            font-size: 1.05rem;
+        }
+
+        .year-tab:hover {
+            background: #e3f2fd;
+            transform: translateY(-2px);
+        }
+
+        .year-tab.active {
+            background: linear-gradient(135deg, #0d3c5c 0%, #1a5a7d 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(13, 60, 92, 0.3);
+        }
+
+        .year-content {
+            display: none;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        .year-content.active {
+            display: block;
+        }
+
+        .section-title {
+            font-size: 1.9rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.8rem;
+            border-bottom: 3px solid #1a5a7d;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            text-align: left;
+        }
+
+        .section-title::after {
+            display: none;
+        }
+
+        .flyer-count {
+            font-size: 0.95rem;
+            color: #666;
+            font-weight: normal;
+        }
+
+        .flyers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 1.8rem;
+            margin-top: 1.5rem;
+        }
+
+        .flyer-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(13, 60, 92, 0.1);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .flyer-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 35px rgba(13, 60, 92, 0.2);
+        }
+
+        .flyer-image {
+            width: 100%;
+            height: auto;
+            display: block;
+            cursor: pointer;
+            transition: transform 0.4s;
+        }
+
+        .flyer-card:hover .flyer-image {
+            transform: scale(1.05);
+        }
+
+        .flyer-info {
+            padding: 1.3rem;
+        }
+
+        .flyer-info h3 {
+            color: #0d3c5c;
+            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
+        }
+
+        .flyer-info p {
+            color: #666;
+            font-size: 0.93rem;
+            line-height: 1.5;
+        }
+
+        .flyer-date {
+            display: inline-block;
+            background: #1a5a7d;
+            color: white;
+            padding: 0.4rem 0.9rem;
+            border-radius: 20px;
+            font-size: 0.87rem;
+            margin-top: 0.5rem;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.92);
+            animation: fadeIn 0.3s;
+        }
+
+        .modal-content {
+            position: relative;
+            margin: auto;
+            padding: 2rem;
+            max-width: 90%;
+            max-height: 90%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content img {
+            max-width: 100%;
+            max-height: 85vh;
+            border-radius: 10px;
+            box-shadow: 0 0 50px rgba(255, 255, 255, 0.3);
+        }
+
+        .close {
+            position: absolute;
+            top: 1rem;
+            right: 2rem;
+            color: #fff;
+            font-size: 2.5rem;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 1001;
+            transition: all 0.3s;
+        }
+
+        .close:hover {
+            color: #ffd700;
+            transform: scale(1.1);
+        }
+
+        .cta-section {
+            background: linear-gradient(135deg, #0d3c5c 0%, #1a5a7d 100%);
+            color: white;
+            padding: 2.5rem;
+            border-radius: 15px;
+            text-align: center;
+            margin-top: 2.5rem;
+        }
+
+        .cta-section h3 {
+            font-size: 1.8rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .cta-section p {
+            font-size: 1.05rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .btn {
+            display: inline-block;
+            background: #ffd700;
+            color: #0d3c5c;
+            padding: 0.9rem 2.2rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-size: 1.05rem;
+            font-weight: bold;
+            transition: all 0.3s;
+            margin: 0.4rem;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 8px 25px rgba(255, 215, 0, 0.4);
+        }
+
+        @media (max-width: 768px) {
+            .flyers-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .meeting-details {
+                grid-template-columns: 1fr;
+            }
+
+            .year-tabs {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="header-top">
+                <div class="logo-section">
+                    <img src="../../images/logo/Banner_Website.png" alt="Anjirai Literary Circle Logo">
+                    <div class="title-section">
+                        <h1>ANJIRAI LITERARY CIRCLE</h1>
+                        <p class="tagline">Bridging cultures through Tales</p>
+                    </div>
+                </div>
+            </div>
+            <nav class="header-nav">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="About.html">About Us</a></li>
+                    <li><a href="Events.html" class="active">Events</a></li>
+                    <li><a href="Contact.html">Contact Us</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="breadcrumb">
+        <a href="index.html">Home</a>
+        <span>›</span>
+        <a href="Events.html">Events</a>
+        <span>›</span>
+        <span style="color: #0d3c5c;">Weekly Meetings</span>
+    </div>
+
+    <div class="container">
+        <div class="intro-section">
+            <h3>Weekly Short Story Discussions - வாராந்திர சிறுகதை கலந்துரையாடல்</h3>
+            <p> Every Wednesday at 8:00 PM EST, the Anjirai Literary Circle brings readers together for an engaging and insightful exploration of Tamil short stories
+            </p>
+           <p>
+           Each session focuses on a thoughtfully selected short story. Participants collectively examine the narrative craft, literary devices, themes, character arcs, and the writer’s artistic choices. The discussions encourage both appreciation and critical thinking, offering space for constructive analysis and deeper understanding.
+           </p>
+<p>
+
+    More than a meeting, this is a community experience.
+Anjirai’s weekly discussions create a warm and inspiring environment where Tamil literature is celebrated, imagination is sparked, and meaningful connections are built through shared dialogue
+</p>
+
+        </div>
+
+        <div class="year-tabs" id="yearTabs"></div>
+
+        <div id="yearContentContainer"></div>
+
+        <div class="cta-section">
+            <h3>Don't Miss Our Next Session!</h3>
+            <p>Join us this wednesday for  our literary discussion. All are warmly welcome!</p>
+            <a href="https://zoom.us/j/89277861759?pwd=a25030700" target="_blank" class="btn">Join Zoom Meeting</a>
+            <a href="Contact.html" class="btn">Contact Us</a>
+        </div>
+    </div>
+
+    <div id="flyerModal" class="modal" onclick="closeModal()">
+        <span class="close">&times;</span>
+        <div class="modal-content">
+            <img id="modalImage" src="" alt="Flyer">
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Anjirai Literary Circle. All rights reserved.</p>
+        <p>A 501(C)(3) Certified,Tax-Exempted Non-Profit Organization | New Jersey, USA</p>
+        <div class="social-links">
+            <a href="https://facebook.com/AnjiraiLiteraryCircle" target="_blank">Facebook</a> |
+            <a href="https://youtube.com/@anjiraibookclub" target="_blank">YouTube</a>
+        </div>
+    </footer>
+
+    <!-- Flyer Data (generated by Python script) -->
+    <script>
+        const flyersByYear = {        const flyersByYear = {
+            "2024": [
+                {
+                    filename: "2024_1.jpg",
+                    title: "Weekly Literary Meeting - Session 2024",
+                    description: "Tamil short story analysis and discussion",
+                    date: "January 06, 2024"
+                },
+                {
+                    filename: "2024_2.jpg",
+                    title: "Weekly Literary Meeting - Session 2024",
+                    description: "Tamil short story analysis and discussion",
+                    date: "January 13, 2024"
+                },
+                {
+                    filename: "2024_3.jpg",
+                    title: "Weekly Literary Meeting - Session 2024",
+                    description: "Tamil short story analysis and discussion",
+                    date: "January 20, 2024"
+                },
+                {
+                    filename: "2024_4.jpg",
+                    title: "Weekly Literary Meeting - Session 2024",
+                    description: "Tamil short story analysis and discussion",
+                    date: "January 27, 2024"
+                },
+                {
+                    filename: "2024_5.jpg",
+                    title: "Weekly Literary Meeting - Session 2024",
+                    description: "Tamil short story analysis and discussion",
+                    date: "February 03, 2024"
+                },
+                {
+                    filename: "2024_6.jpg",
+                    title: "Weekly Literary Meeting - Session 2024",
+                    description: "Tamil short story analysis and discussion",
+                    date: "February 10, 2024"
+                }
+            ],
+            "2025": [
+                {
+                    filename: "Aug27.jpg",
+                    title: "Weekly Literary Meeting - Session 27",
+                    description: "Tamil short story analysis and discussion",
+                    date: "January 04, 2025"
+                },
+                {
+                    filename: "Dec3.jpg",
+                    title: "Weekly Literary Meeting - Session 3",
+                    description: "Tamil short story analysis and discussion",
+                    date: "January 11, 2025"
+                },
+                {
+                    filename: "Nov5.jpg",
+                    title: "Weekly Literary Meeting - Session 5",
+                    description: "Tamil short story analysis and discussion",
+                    date: "January 18, 2025"
+                },
+                {
+                    filename: "Nov12.jpg",
+                    title: "Weekly Literary Meeting - Session 12",
+                    description: "Tamil short story analysis and discussion",
+                    date: "January 25, 2025"
+                },
+                {
+                    filename: "Nov26.jpg",
+                    title: "Weekly Literary Meeting - Session 26",
+                    description: "Tamil short story analysis and discussion",
+                    date: "February 01, 2025"
+                },
+                {
+                    filename: "Oct8.jpg",
+                    title: "Weekly Literary Meeting - Session 8",
+                    description: "Tamil short story analysis and discussion",
+                    date: "February 08, 2025"
+                },
+                {
+                    filename: "Oct22.jpg",
+                    title: "Weekly Literary Meeting - Session 22",
+                    description: "Tamil short story analysis and discussion",
+                    date: "February 15, 2025"
+                },
+                {
+                    filename: "Oct29.jpg",
+                    title: "Weekly Literary Meeting - Session 29",
+                    description: "Tamil short story analysis and discussion",
+                    date: "February 22, 2025"
+                }
+            ]
+        };
+        };
+    </script>
+
+    <!-- JavaScript -->
+    <script src="../js/common.js"></script>
+    <script src="../js/weeklyMeeting.js"></script>
+</body>
+</html>

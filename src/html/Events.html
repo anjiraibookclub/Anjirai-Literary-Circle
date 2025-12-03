@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Events - Anjirai Literary Circle</title>
+    <link rel="stylesheet" href="../css/common.css">
+    <style>
+        /* Page-specific styles for Events.html */
+
+        .event-nav {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            margin-bottom: 2.5rem;
+            padding: 1.2rem;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(13, 60, 92, 0.08);
+        }
+
+        .event-nav a {
+            padding: 0.7rem 1.4rem;
+            background: #f0f7fb;
+            color: #0d3c5c;
+            text-decoration: none;
+            border-radius: 25px;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+            font-weight: 600;
+            font-size: 0.95rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .event-nav a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(26, 90, 125, 0.1), transparent);
+            transition: left 0.4s;
+        }
+
+        .event-nav a:hover::before {
+            left: 100%;
+        }
+
+        .event-nav a:hover {
+            border-color: #1a5a7d;
+            transform: translateY(-2px);
+        }
+
+        .event-nav a.active {
+            background: linear-gradient(135deg, #0d3c5c 0%, #1a5a7d 100%);
+            color: white;
+            border-color: #1a5a7d;
+            box-shadow: 0 4px 15px rgba(13, 60, 92, 0.3);
+        }
+
+        .event-section {
+            display: none;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        .event-section.active {
+            display: block;
+        }
+
+        .section-title {
+            font-size: 1.9rem;
+            margin-bottom: 1.8rem;
+            padding-bottom: 0.8rem;
+            border-bottom: 3px solid #1a5a7d;
+            text-align: left;
+        }
+
+        .section-title::after {
+            display: none;
+        }
+
+        .events-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.8rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .event-card {
+            background: white;
+            border-radius: 15px;
+            padding: 1.8rem;
+            box-shadow: 0 4px 20px rgba(13, 60, 92, 0.08);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border-top: 5px solid #1a5a7d;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .event-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(26, 90, 125, 0.05), transparent);
+            transition: left 0.6s;
+        }
+
+        .event-card:hover::before {
+            left: 100%;
+        }
+
+        .event-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 12px 35px rgba(13, 60, 92, 0.15);
+        }
+
+        .event-badge {
+            background: #1a5a7d;
+            color: white;
+            padding: 0.4rem 0.9rem;
+            border-radius: 20px;
+            display: inline-block;
+            font-weight: bold;
+            margin-bottom: 0.8rem;
+            font-size: 0.85rem;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        .event-card h3 {
+            color: #0d3c5c;
+            margin-bottom: 0.8rem;
+            font-size: 1.35rem;
+        }
+
+        .event-card p {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 0.8rem;
+            font-size: 0.98rem;
+        }
+
+        .event-details {
+            background: #f0f7fb;
+            padding: 0.9rem;
+            border-radius: 8px;
+            margin-top: 0.8rem;
+            font-size: 0.92rem;
+        }
+
+        .event-details strong {
+            color: #0d3c5c;
+        }
+
+        .featured-event {
+            background: linear-gradient(135deg, #0d3c5c 0%, #1a5a7d 100%);
+            color: white;
+            padding: 2.5rem;
+            border-radius: 15px;
+            margin-bottom: 2.5rem;
+            box-shadow: 0 8px 30px rgba(13, 60, 92, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .featured-event::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,215,0,0.1) 0%, transparent 70%);
+            animation: pulse 20s ease-in-out infinite;
+        }
+
+        .featured-event h3 {
+            font-size: 1.8rem;
+            margin-bottom: 0.8rem;
+            color: #ffd700;
+            position: relative;
+            z-index: 1;
+        }
+
+        .featured-event p {
+            font-size: 1.05rem;
+            line-height: 1.7;
+            color: white;
+            position: relative;
+            z-index: 1;
+        }
+
+        .featured-event .event-info {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1.3rem;
+            border-radius: 10px;
+            margin-top: 1.3rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .featured-event a {
+            display: inline-block;
+            background: #ffd700;
+            color: #0d3c5c;
+            padding: 0.8rem 2rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s;
+            margin-top: 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .featured-event a:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 8px 25px rgba(255, 215, 0, 0.4);
+        }
+
+        @media (max-width: 768px) {
+            .events-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .event-nav {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="header-top">
+                <div class="logo-section">
+                    <img src="../../images/logo/Banner_Website.png" alt="Anjirai Literary Circle Logo">
+                    <div class="title-section">
+                        <h1>ANJIRAI LITERARY CIRCLE</h1>
+                        <p class="tagline">Read, Reflect, Evolve – Stories that Shape Us</p>
+                    </div>
+                </div>
+            </div>
+            <nav class="header-nav">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="About.html">About Us</a></li>
+                    <li><a href="Events.html" class="active">Events</a></li>
+                    <li><a href="Contact.html">Contact Us</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+
+
+    <div class="container">
+        <div class="event-nav">
+            <a href="#weekly" onclick="showEventSection('weekly', event)" class="active">Weekly Events</a>
+            <a href="#monthly" onclick="showEventSection('monthly', event)">Monthly Events</a>
+            <a href="#quarterly" onclick="showEventSection('quarterly', event)">Author Meet</a>
+
+        </div>
+
+        <div id="weekly" class="event-section active">
+
+            
+            <div class="featured-event">
+                <h3>📖 Weekly Book Discussion</h3>
+                <p>Join us every week to explore the richness of Tamil literature through carefully selected short stories spanning classic masterpieces and modern narratives. </p>
+                <p>Each session opens an inviting space for readers to immerse themselves in the depth and diversity of Tamil literature through lively dialogue and thoughtful analysis.</p>
+                <div class="event-info">
+                    <p><strong>📅 When:</strong> Every Wednesday, Sep 1, 2025 onwards</p>
+                    <p><strong>🕐 Time:</strong> 8:00 PM - 9:30 PM EST</p>
+                    <p><strong>📍 Where:</strong> Online (Zoom)</p>
+                    <p><strong>🔑 Meeting ID:</strong> 892 7786 1759</p>
+                    <p><strong>🔐 Passcode:</strong> a25030700</p>
+                </div>
+                <a href="weeklyMeeting.html">View All Weekly Meeting Flyers →</a>
+            </div>
+
+
+        </div>
+
+        <div id="monthly" class="event-section"> <h2 class="section-title">Novel Discussion</h2>
+            
+            <div class="events-grid">
+                <div class="event-card">
+                    <span class="event-badge">Monthly</span>
+                    <h3>Novel Discussion Sessions</h3>
+                    <p>Experience the beauty of Tamil poetry through live readings and discussions featuring both classical and contemporary works.</p>
+                    <div class="event-details">
+                        <strong>Format:</strong> Open mic, featured readers, poetry analysis
+                    </div>
+                </div>
+
+                <div class="event-card">
+                    <span class="event-badge">Monthly</span>
+                    <h3>Author Talks</h3>
+                    <p>Interactive sessions with published Tamil authors sharing their writing journey, creative process, and insights into the literary world.</p>
+                    <div class="event-details">
+                        <strong>Includes:</strong> Q&A, book signing, networking
+                    </div>
+                </div>
+
+                <div class="event-card">
+                    <span class="event-badge">Monthly</span>
+                    <h3>Translation Workshop</h3>
+                    <p>Learn the art of literary translation and help bring Tamil works to global audiences.</p>
+                    <div class="event-details">
+                        <strong>Focus:</strong> Tamil to English and vice versa
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="quarterly" class="event-section">
+            <h2 class="section-title">Quarterly Events</h2>
+            
+            <div class="events-grid">
+                <div class="event-card">
+                    <span class="event-badge">Quarterly</span>
+                    <h3>Creative Writing Workshops</h3>
+                    <p>Comprehensive workshops covering fiction, non-fiction, poetry, and various literary forms with expert instructors.</p>
+                    <div class="event-details">
+                        <strong>Duration:</strong> Full-day intensive sessions<br>
+                        <strong>Topics:</strong> Storytelling, character development, narrative techniques
+                    </div>
+                </div>
+
+                <div class="event-card">
+                    <span class="event-badge">Quarterly</span>
+                    <h3>Literary Magazine Publication</h3>
+                    <p>Our quarterly literary magazine featuring works from members and guest contributors.</p>
+                    <div class="event-details">
+                        <strong>Submissions:</strong> Open to all members<br>
+                        <strong>Genres:</strong> Poetry, short stories, essays, reviews
+                    </div>
+                </div>
+
+                <div class="event-card">
+                    <span class="event-badge">Quarterly</span>
+                    <h3>Cultural Heritage Series</h3>
+                    <p>Deep dives into Tamil literary history, classical literature, and cultural preservation.</p>
+                    <div class="event-details">
+                        <strong>Features:</strong> Guest scholars, multimedia presentations
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="annual" class="event-section">
+            <h2 class="section-title">Annual Events</h2>
+            
+            <div class="events-grid">
+                <div class="event-card">
+                    <span class="event-badge">Annual Flagship</span>
+                    <h3>Tamil Literary Festival</h3>
+                    <p>Our premier annual event bringing together authors, publishers, readers, and literary enthusiasts for a celebration of Tamil literature.</p>
+                    <div class="event-details">
+                        <strong>Features:</strong> Panel discussions, book launches, performances<br>
+                        <strong>Duration:</strong> 2-3 days<br>
+                        <strong>Attendance:</strong> 500+ participants
+                    </div>
+                </div>
+
+                <div class="event-card">
+                    <span class="event-badge">Annual</span>
+                    <h3>Writing Competition</h3>
+                    <p>Open competition for writers of all ages with categories for poetry, short stories, essays, and translation.</p>
+                    <div class="event-details">
+                        <strong>Prizes:</strong> Cash awards, publication opportunities<br>
+                        <strong>Categories:</strong> Youth, Adult, Senior
+                    </div>
+                </div>
+
+                <div class="event-card">
+                    <span class="event-badge">Annual</span>
+                    <h3>Literary Awards Ceremony</h3>
+                    <p>Recognizing outstanding contributions to Tamil literature and honoring authors, translators, and cultural ambassadors.</p>
+                    <div class="event-details">
+                        <strong>Awards:</strong> Lifetime achievement, best book, emerging writer
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="library" class="event-section">
+            <h2 class="section-title">Library & Resource Programs</h2>
+            
+            <div class="events-grid">
+                <div class="event-card">
+                    <span class="event-badge">Ongoing</span>
+                    <h3>Digital Tamil Library</h3>
+                    <p>Building a comprehensive online repository of Tamil literary works, making them accessible to readers worldwide.</p>
+                    <div class="event-details">
+                        <strong>Collection:</strong> Classical and contemporary works<br>
+                        <strong>Access:</strong> Free for members
+                    </div>
+                </div>
+
+                <div class="event-card">
+                    <span class="event-badge">Monthly</span>
+                    <h3>Library Book Club</h3>
+                    <p>Structured reading program with curated selections from our growing library collection.</p>
+                    <div class="event-details">
+                        <strong>Format:</strong> Monthly book selection, guided discussions
+                    </div>
+                </div>
+
+                <div class="event-card">
+                    <span class="event-badge">Resource</span>
+                    <h3>Research Archives</h3>
+                    <p>Access to rare manuscripts, historical documents, and academic resources for literary research.</p>
+                    <div class="event-details">
+                        <strong>Available:</strong> By appointment for researchers and scholars
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="ongoing" class="event-section">
+            <h2 class="section-title">Ongoing Initiatives</h2>
+            
+            <div class="events-grid">
+                <div class="event-card">
+                    <span class="event-badge">Ongoing</span>
+                    <h3>Publication Sponsorship</h3>
+                    <p>Supporting Tamil authors through publication grants, editing services, and promotional assistance.</p>
+                    <div class="event-details">
+                        <strong>Support:</strong> Financial aid, editorial services, marketing<br>
+                        <strong>Apply:</strong> Rolling applications accepted
+                    </div>
+                </div>
+
+                <div class="event-card">
+                    <span class="event-badge">Ongoing</span>
+                    <h3>Translation Projects</h3>
+                    <p>Active translation initiatives bringing Tamil literature to global audiences and world literature to Tamil readers.</p>
+                    <div class="event-details">
+                        <strong>Volunteer:</strong> Translators always welcome
+                    </div>
+                </div>
+
+                <div class="event-card">
+                    <span class="event-badge">Ongoing</span>
+                    <h3>Mentorship Program</h3>
+                    <p>Connecting emerging writers with experienced authors for guidance, feedback, and career development.</p>
+                    <div class="event-details">
+                        <strong>Duration:</strong> 6-month mentorship cycles<br>
+                        <strong>Applications:</strong> Open quarterly
+                    </div>
+                </div>
+
+                <div class="event-card">
+                    <span class="event-badge">Ongoing</span>
+                    <h3>Community Outreach</h3>
+                    <p>Programs to promote Tamil literacy and literature appreciation in schools and community centers.</p>
+                    <div class="event-details">
+                        <strong>Activities:</strong> School visits, reading programs, workshops
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Anjirai Literary Circle. All rights reserved.</p>
+        <p>A Non-Profit Organization | New Jersey, USA</p>
+        <div class="social-links">
+            <a href="https://facebook.com/AnjiraiLiteraryCircle" target="_blank">Facebook</a> |
+            <a href="https://youtube.com/@anjiraibookclub" target="_blank">YouTube</a>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="../js/common.js"></script>
+    <script src="../js/events.js"></script>
+</body>
+</html>

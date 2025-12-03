@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anjirai Literary Circle - Home</title>
+    <link rel="stylesheet" href="../css/common.css">
+    <style>
+        /* Page-specific styles for Home.html */
+        body {
+            overflow-x: hidden;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, rgba(13, 60, 92, 0.95), rgba(26, 90, 125, 0.95)),
+                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><rect fill="%230d3c5c" width="1200" height="600"/></svg>');
+            color: white;
+            text-align: center;
+            padding: 3rem 2rem;
+            min-height: 380px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,215,0,0.1) 0%, transparent 70%);
+            animation: pulse 15s ease-in-out infinite;
+        }
+
+        .hero-logo {
+            width: 120px;
+            height: 60px;
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hero h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            animation: fadeIn 1.2s ease-in;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero .tagline {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto;
+            font-style: italic;
+            line-height: 1.7;
+            color: #ffd700;
+            animation: fadeIn 1.4s ease-in;
+            position: relative;
+            z-index: 1;
+        }
+
+        .intro-content {
+            text-align: center;
+            font-size: 1.15rem;
+            max-width: 900px;
+            margin: 0 auto 2.5rem;
+            line-height: 1.8;
+            color: #555;
+            animation: fadeIn 1s ease-in;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(13, 60, 92, 0.08);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border-top: 4px solid #1a5a7d;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(26, 90, 125, 0.05), transparent);
+            transition: left 0.6s;
+        }
+
+        .feature-card:hover::before {
+            left: 100%;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 12px 35px rgba(13, 60, 92, 0.2);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            display: inline-block;
+            transition: transform 0.3s;
+        }
+
+        .feature-card:hover .feature-icon {
+            transform: scale(1.2) rotate(5deg);
+        }
+
+        .feature-card h3 {
+            color: #0d3c5c;
+            margin-bottom: 0.8rem;
+            font-size: 1.4rem;
+        }
+
+        .feature-card p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .cta-section {
+            background: linear-gradient(135deg, #0d3c5c 0%, #1a5a7d 100%);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+            margin-top: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,215,0,0.1) 0%, transparent 70%);
+            animation: pulse 20s ease-in-out infinite;
+        }
+
+        .cta-section h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-section p {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        footer p {
+            font-size: 0.95rem;
+        }
+
+        .social-links a {
+            margin: 0 0.6rem;
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                padding: 2.5rem 1.5rem;
+                min-height: 320px;
+            }
+
+            .hero h2 {
+                font-size: 1.8rem;
+            }
+
+            .hero .tagline {
+                font-size: 1rem;
+            }
+
+            .features {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+        }
+
+        /* Scroll animations */
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease-out;
+        }
+
+        .fade-in-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="header-top">
+                <div class="logo-section">
+                    <img src="../../images/logo/Banner_Website.png" alt="Anjirai Literary Circle Logo">
+                    <div class="title-section">
+                        <h1>ANJIRAI LITERARY CIRCLE</h1>
+                        <p class="tagline">Read, Reflect, Evolve – Stories that Shape Us</p>
+                    </div>
+                </div>
+            </div>
+            <nav class="header-nav">
+                <ul>
+                    <li><a href="index.html" class="active">Home</a></li>
+                    <li><a href="About.html">About Us</a></li>
+                    <li><a href="Events.html">Events</a></li>
+                    <li><a href="Contact.html">Contact Us</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+
+
+    <div class="container">
+        <h2 class="section-title fade-in-up">A Bridge Between Cultures</h2>
+        <div class="intro-content fade-in-up">
+            <p>
+                Founded in 2024 in New Jersey, the Anjirai Literary Circle is a 501(c)(3) certified, tax-exempted non-profit organization dedicated to carrying the richness of Tamil literature across borders and generations. We are not simply an institution — we are a chorus of voices, a circle where imagination flourishes, and a bridge that connects cultures through the timeless power of words.
+
+            </p>
+
+        </div>
+
+        <div class="features">
+            <div class="feature-card fade-in-up">
+                <div class="feature-icon">📚</div>
+                <h3>Literary Excellence</h3>
+                <p>Celebrating Tamil literature's centuries of richness and contemporary brilliance on the world stage.</p>
+            </div>
+            <div class="feature-card fade-in-up">
+                <div class="feature-icon">🌍</div>
+                <h3>Global Reach</h3>
+                <p>Supporting translations and opening pathways for Tamil works to travel into new languages and audiences.</p>
+            </div>
+            <div class="feature-card fade-in-up">
+                <div class="feature-icon">✍️</div>
+                <h3>Creative Community</h3>
+                <p>Organizing workshops, book clubs, and events where readers and writers meet, share, and grow together.</p>
+            </div>
+        </div>
+    </div>
+
+
+
+    <footer>
+        <p>&copy; 2024 Anjirai Literary Circle. All rights reserved.</p>
+        <p>A Non-Profit Organization | New Jersey, USA</p>
+        <div class="social-links">
+            <a href="https://facebook.com/AnjiraiLiteraryCircle" target="_blank">Facebook</a> |
+            <a href="https://youtube.com/@anjiraibookclub" target="_blank">YouTube</a>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="../js/common.js"></script>
+    <script src="../js/home.js"></script>
+</body>
+</html>
